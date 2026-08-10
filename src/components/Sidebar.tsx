@@ -67,8 +67,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <h1 className="font-extrabold text-base tracking-tight gradient-text">
                 Gemini LLM Studio
               </h1>
-              <span className="text-[10px] text-slate-400 font-mono tracking-wider uppercase">
+              <span className="text-[10px] text-slate-400 font-mono tracking-wider uppercase block">
                 Next.js AI Chat
+              </span>
+              <span className="text-[11px] font-semibold text-cyan-400 block tracking-wide">
+                By Noam Maimon
               </span>
             </div>
           </div>
