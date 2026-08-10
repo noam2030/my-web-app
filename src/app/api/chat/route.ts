@@ -31,9 +31,10 @@ export async function POST(req: NextRequest) {
 
     // Default fast & rich Demo Simulator Stream (Zero API Key needed)
     return handleDemoSimulatorStream(lastUserMessage, settings, activePersona);
-  } catch (err: any) {
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Internal Server Error';
     console.error('API Chat error:', err);
-    return new Response(JSON.stringify({ error: err.message || 'Internal Server Error' }), {
+    return new Response(JSON.stringify({ error: message }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
@@ -106,7 +107,9 @@ async function handleGeminiStream(
                 const parsed = JSON.parse(trimmed.replace(/^,/, ''));
                 const text = parsed?.candidates?.[0]?.content?.parts?.[0]?.text;
                 if (text) controller.enqueue(encoder.encode(text));
-              } catch (_) {}
+              } catch {
+                // Ignore JSON parse errors for incomplete stream chunks
+              }
             }
           }
         }
@@ -189,7 +192,9 @@ async function handleOpenAIStream(
                 if (token) {
                   controller.enqueue(encoder.encode(token));
                 }
-              } catch (_) {}
+              } catch {
+                // Ignore JSON parse errors for incomplete stream chunks
+              }
             }
           }
         }

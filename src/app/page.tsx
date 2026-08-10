@@ -8,7 +8,7 @@ import { ChatMessage } from '@/components/ChatMessage';
 import { ChatInput } from '@/components/ChatInput';
 import { PromptCards } from '@/components/PromptCards';
 import { SettingsModal } from '@/components/SettingsModal';
-import { Menu, Sparkles, Settings, Bot, RefreshCw, Cpu, Layers } from 'lucide-react';
+import { Menu, Settings, Bot } from 'lucide-react';
 
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -134,8 +134,9 @@ export default function Home() {
           msg.id === assistantId ? { ...msg, isStreaming: false } : msg
         )
       );
-    } catch (err: any) {
-      if (err.name === 'AbortError') {
+    } catch (err: unknown) {
+      const errorObj = err as { name?: string; message?: string };
+      if (errorObj.name === 'AbortError') {
         console.log('Generation stopped by user');
       } else {
         console.error('Chat error:', err);
@@ -144,7 +145,7 @@ export default function Home() {
             msg.id === assistantId
               ? {
                   ...msg,
-                  content: `⚠️ Error: ${err.message || 'Failed to fetch LLM response.'}`,
+                  content: `⚠️ Error: ${errorObj.message || 'Failed to fetch LLM response.'}`,
                   error: true,
                   isStreaming: false,
                 }

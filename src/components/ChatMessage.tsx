@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Message, Persona } from '@/lib/types';
-import { Bot, User, Copy, Check, Sparkles, Terminal, AlertCircle } from 'lucide-react';
+import { User, Copy, Check, Sparkles, Terminal, AlertCircle } from 'lucide-react';
 
 interface ChatMessageProps {
   message: Message;
