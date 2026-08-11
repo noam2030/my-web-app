@@ -1,20 +1,28 @@
-# GitHub Actions Labeler configuration
-'UI':
-  - 'src/components/**/*'
-  - 'src/app/globals.css'
-  - 'src/app/layout.tsx'
+# GitHub Actions Labeler v5 configuration schema
+UI:
+  - changed-files:
+      - AnyGlobToAnyFile:
+          - 'src/components/**/*'
+          - 'src/app/globals.css'
+          - 'src/app/layout.tsx'
 
-'API':
-  - 'src/app/api/**/*'
+API:
+  - changed-files:
+      - AnyGlobToAnyFile:
+          - 'src/app/api/**/*'
 
-'Documentation':
-  - 'README.md'
-  - 'AGENTS.md'
-  - 'CLAUDE.md'
-  - '.github/**/*'
+Documentation:
+  - changed-files:
+      - AnyGlobToAnyFile:
+          - 'README.md'
+          - 'AGENTS.md'
+          - 'CLAUDE.md'
+          - '.github/**/*'
 
-'Configuration':
-  - 'package.json'
-  - 'tsconfig.json'
-  - 'next.config.ts'
-  - 'Dockerfile'
+Configuration:
+  - changed-files:
+      - AnyGlobToAnyFile:
+          - 'package.json'
+          - 'tsconfig.json'
+          - 'next.config.ts'
+          - 'Dockerfile'
