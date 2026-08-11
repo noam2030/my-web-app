@@ -1,19 +1,19 @@
-# GitHub Actions Labeler v5 configuration schema
+# GitHub Actions Labeler v5 configuration schema (kebab-case options)
 UI:
   - changed-files:
-      - AnyGlobToAnyFile:
+      - any-glob-to-any-file:
           - 'src/components/**/*'
           - 'src/app/globals.css'
           - 'src/app/layout.tsx'
 
 API:
   - changed-files:
-      - AnyGlobToAnyFile:
+      - any-glob-to-any-file:
           - 'src/app/api/**/*'
 
 Documentation:
   - changed-files:
-      - AnyGlobToAnyFile:
+      - any-glob-to-any-file:
           - 'README.md'
           - 'AGENTS.md'
           - 'CLAUDE.md'
@@ -21,7 +21,7 @@ Documentation:
 
 Configuration:
   - changed-files:
-      - AnyGlobToAnyFile:
+      - any-glob-to-any-file:
           - 'package.json'
           - 'tsconfig.json'
           - 'next.config.ts'
