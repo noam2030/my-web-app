@@ -16,6 +16,9 @@ jobs:
       pull-requests: write
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Auto Label Pull Request by Changed Files
         if: github.event_name == 'pull_request_target'
         uses: actions/labeler@v5
