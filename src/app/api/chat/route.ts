@@ -223,7 +223,8 @@ function handleDemoSimulatorStream(
   const responseText = generateSmartDemoResponse(prompt, persona.id);
 
   const encoder = new TextEncoder();
-  const chunks = responseText.match(/.{1,4}/g) || [responseText];
+  // Safe word-token chunking to preserve multi-byte UTF-8 emojis (e.g. 👋, 💻, ⚡) without splitting surrogate pairs
+  const chunks = responseText.split(/(?<=\s)/);
 
   let index = 0;
   const stream = new ReadableStream({
@@ -236,7 +237,7 @@ function handleDemoSimulatorStream(
           clearInterval(interval);
           controller.close();
         }
-      }, 24); // smooth 24ms chunk interval
+      }, 35); // smooth 35ms word streaming interval
     },
   });
 
@@ -396,67 +397,66 @@ for (let i = 0; i < len; i++) {
 | Optimized \`for\` Loop | **~4.2 MB** | **~2.1 ms** |`;
   }
 
-  // Persona specific default fallback response
-  if (personaId === 'coder') {
-    return `I've analyzed your prompt: **"${prompt}"**.
+  if (lower.includes('israel') && (lower.includes('capital') || lower.includes('city'))) {
+    return `### Capital of Israel
 
-Here is a recommended software pattern to solve this cleanly:
+**Jerusalem** is the capital of Israel.
+
+* 📜 **Historical & Cultural Importance**: It is one of the oldest cities in the world and holds profound historical, cultural, and spiritual significance.
+* 🏛️ **Seat of Government**: Jerusalem serves as the administrative capital of Israel, hosting its primary government institutions including the **Knesset** (parliament), the **Supreme Court**, and the official residences of the Prime Minister and President.
+
+> **Tip**: Plug in your Google Gemini or OpenAI API key in **Settings** anytime to get live real-time LLM inference for any question!`;
+  }
+
+  // Persona specific fallback response
+  if (personaId === 'coder') {
+    return `### Analysis & Solution for: "${prompt}"
+
+Here is a structured technical response:
+
+1. 🎯 **Requirement Analysis**: Addressing "${prompt}" with clean, maintainable architecture.
+2. ⚡ **Implementation Best Practices**: Ensuring type safety, performance, and low memory consumption.
 
 \`\`\`typescript
-// Architecture Solution
-interface TaskPayload<T> {
-  id: string;
-  timestamp: number;
-  data: T;
-}
-
-export async function processTask<T>(payload: TaskPayload<T>): Promise<{ success: boolean }> {
-  try {
-    console.log(\`Processing task \${payload.id} at \${new Date(payload.timestamp).toISOString()}\`);
-    // Business logic implementation
-    return { success: true };
-  } catch (error) {
-    console.error('Task processing failed:', error);
-    return { success: false };
+// Solution snippet for: ${prompt.substring(0, 40)}
+export function handleRequest(input: string): { status: string; result: string } {
+  if (!input.trim()) {
+    return { status: 'error', result: 'Input cannot be empty' };
   }
+
+  return {
+    status: 'success',
+    result: \`Processed: \${input}\`
+  };
 }
 \`\`\`
 
-Let me know if you want me to expand on unit testing, error boundaries, or state management integration for this!`;
+> **Note**: For live real-time LLM responses to any complex prompt, toggle to **Google Gemini** or **OpenAI** in the **Settings** menu!`;
   }
 
   if (personaId === 'creative') {
-    return `✨ **Creative Breakdown**:
+    return `✨ **Creative Perspective on: "${prompt}"**
 
-That's a fascinating concept! Let's elevate **"${prompt}"** with a compelling creative twist:
+That's a great topic to explore! Here is an imaginative breakdown:
 
-### 🌟 Core Vision
-> *"Innovation isn't just about creating something new—it's about re-imagining how people experience the familiar."*
+### 🌟 Core Angle
+> *"Great ideas begin at the intersection of curiosity and perspective."*
 
-### 💡 3 Key Creative Angles:
-1. **The Holographic Interface**: Seamless context adaptation based on user intent and mood.
-2. **Dynamic Storytelling Flow**: Interactive responses that adjust tone according to user engagement.
-3. **Ambient Intelligence**: Anticipating user needs before they even type a single keyword.
+### 💡 3 Key Ideas:
+1. **Interactive Storytelling**: Elevating the concept through user engagement.
+2. **Visual Impact**: Pairing bold imagery with concise, memorable messaging.
+3. **Future Vision**: Anticipating how this evolves over the next 5 years.
 
-Would you like to draft a headline campaign or brand narrative for this idea?`;
+Feel free to refine this concept or switch system personas in the left sidebar!`;
   }
 
-  return `Thank you for your question: **"${prompt}"**.
+  return `### Response to: "${prompt}"
 
 Here are the key takeaways and structured breakdown:
 
-1. 🎯 **Primary Focus**: Addressing the core requirement with precision and clarity.
-2. ⚡ **Implementation Strategy**: Utilizing modular, scalable techniques for optimal results.
-3. 🔒 **Best Practices**: Ensuring robust error handling and high usability.
+1. 🎯 **Core Concept**: Addressing the main question with clarity and precision.
+2. ⚡ **Key Factors**: Ensuring robust implementation and high usability.
+3. 🔒 **Best Practices**: Following standard design guidelines and maintainability.
 
-\`\`\`json
-{
-  "status": "success",
-  "promptReceived": "${prompt.substring(0, 30)}...",
-  "persona": "${personaId}",
-  "mode": "Demo Streaming Mode (Active)"
-}
-\`\`\`
-
-Feel free to ask follow-up questions or test switching personas in the left panel!`;
+> **Tip**: You can enter your own Google Gemini or OpenAI API key in **Settings** for live AI inference!`;
 }
