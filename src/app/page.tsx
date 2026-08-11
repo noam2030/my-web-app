@@ -8,6 +8,7 @@ import { ChatMessage } from '@/components/ChatMessage';
 import { ChatInput } from '@/components/ChatInput';
 import { PromptCards } from '@/components/PromptCards';
 import { SettingsModal } from '@/components/SettingsModal';
+import { Footer } from '@/components/Footer';
 import { Menu, Settings, Bot } from 'lucide-react';
 
 export default function Home() {
@@ -247,6 +248,7 @@ export default function Home() {
             isLoading={isLoading}
             onStopGeneration={handleStopGeneration}
           />
+          <Footer />
         </div>
       </main>
 
