@@ -1,0 +1,20 @@
+# GitHub Actions Labeler configuration
+'UI':
+  - 'src/components/**/*'
+  - 'src/app/globals.css'
+  - 'src/app/layout.tsx'
+
+'API':
+  - 'src/app/api/**/*'
+
+'Documentation':
+  - 'README.md'
+  - 'AGENTS.md'
+  - 'CLAUDE.md'
+  - '.github/**/*'
+
+'Configuration':
+  - 'package.json'
+  - 'tsconfig.json'
+  - 'next.config.ts'
+  - 'Dockerfile'
