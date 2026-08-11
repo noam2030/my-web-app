@@ -15,7 +15,9 @@ import {
   Key,
   Flame,
   Layers,
-  X
+  X,
+  Cloud,
+  Globe
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -183,6 +185,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Footer Controls */}
       <div className="pt-4 border-t border-slate-800/80 space-y-2">
+        {/* Hosting & Deployment Badge */}
+        <a
+          href="https://github.com/noam2030/my-web-app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-between bg-slate-900/90 hover:bg-slate-850 p-2.5 rounded-xl border border-cyan-500/30 text-xs transition-all group"
+        >
+          <div className="flex items-center gap-2">
+            <Cloud className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
+            <span className="font-semibold text-slate-200">Google Cloud Run</span>
+          </div>
+          <span className="text-[10px] text-cyan-400 font-mono font-medium flex items-center gap-1">
+            Deployed <Globe className="w-3 h-3" />
+          </span>
+        </a>
+
         {/* Active Provider Badge */}
         <div className="flex items-center justify-between bg-slate-900/80 p-2.5 rounded-xl border border-slate-800/80 text-xs">
           <div className="flex items-center gap-2">
