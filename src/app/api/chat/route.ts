@@ -249,7 +249,19 @@ function handleDemoSimulatorStream(
 }
 
 function generateSmartDemoResponse(prompt: string, personaId: string): string {
-  const lower = prompt.toLowerCase();
+  const lower = prompt.toLowerCase().trim();
+
+  // Friendly greeting check
+  if (/^(hello|hi|hey|greetings|howdy|good morning|good afternoon|good evening|who are you|how are you)/i.test(lower)) {
+    return `Hello! 👋 Welcome to **Gemini LLM Studio**.
+
+How can I assist you today? Here are a few things you can ask me:
+* 💻 **Software Architecture & Code**: Write TypeScript hooks, refactor loops, or build features.
+* ⚡ **Technical Explanations**: Explain complex topics like Quantum Computing, state machines, or APIs.
+* 💡 **Creative Ideas**: Brainstorm brand concepts, UX copy, or app features.
+
+> **Tip**: You can switch system personas in the left sidebar or plug in your own Google Gemini / OpenAI API key in **Settings** for live AI inference!`;
+  }
 
   if (lower.includes('hook') || lower.includes('react') || lower.includes('fetch')) {
     return `Here is a production-ready custom React hook in **TypeScript** featuring automatic loading state management, error handling, and manual re-fetching:
